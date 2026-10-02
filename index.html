@@ -1,0 +1,2193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Manga — Coffeehouse, Tashkent</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --navy:#0a0f1c;
+  --navy2:#060a13;
+  --gold:#c9a24d;
+  --gold-l:#eccf94;
+  --cream:#f4efe4;
+  --muted:rgba(244,239,228,.56);
+  --line:rgba(201,162,77,.28);
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+  background:var(--navy);
+}
+
+body{
+  background:
+    radial-gradient(
+      circle at 50% -10%,
+      rgba(201,162,77,.12),
+      transparent 40%
+    ),
+    linear-gradient(
+      180deg,
+      #0a0f1c,
+      #070c16 45%,
+      #05080f
+    );
+  color:var(--cream);
+  font-family:'Jost',sans-serif;
+  overflow-x:hidden;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+button,
+input,
+textarea,
+select{
+  font:inherit;
+}
+
+h1,
+h2,
+h3,
+.logo,
+.quote,
+.ghost{
+  font-family:'Fraunces',serif;
+}
+
+.wrap{
+  max-width:1180px;
+  margin:0 auto;
+  padding:0 22px;
+}
+
+section{
+  padding:100px 0;
+}
+
+@media(max-width:640px){
+  section{
+    padding:64px 0;
+  }
+}
+
+::selection{
+  background:var(--gold);
+  color:var(--navy);
+}
+
+
+/* =========================
+   PROGRESS
+========================= */
+
+#progress{
+  position:fixed;
+  top:0;
+  left:0;
+  height:2px;
+  background:var(--gold);
+  width:0;
+  z-index:1200;
+}
+
+
+/* =========================
+   REVEAL
+========================= */
+
+.reveal{
+  opacity:0;
+  transform:translateY(24px);
+  transition:
+    opacity .7s ease,
+    transform .7s ease;
+}
+
+.reveal.in{
+  opacity:1;
+  transform:translateY(0);
+}
+
+
+/* =========================
+   NAV
+========================= */
+
+.nav{
+  position:fixed;
+  top:14px;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(1180px,calc(100% - 28px));
+  z-index:1000;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:13px 22px;
+
+  background:rgba(10,15,28,.62);
+  border:1px solid var(--line);
+  border-radius:16px;
+
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+
+  transition:.3s;
+}
+
+.nav.scrolled{
+  background:rgba(6,10,19,.9);
+}
+
+.logo{
+  font-size:20px;
+  letter-spacing:2px;
+  color:var(--gold-l);
+}
+
+.nlinks{
+  display:flex;
+  gap:28px;
+}
+
+.nlinks a{
+  font-size:12px;
+  letter-spacing:1px;
+  color:rgba(244,239,228,.68);
+  transition:.25s;
+}
+
+.nlinks a:hover{
+  color:var(--gold-l);
+}
+
+.burger{
+  display:none;
+  flex-direction:column;
+  gap:5px;
+  background:none;
+  border:0;
+  cursor:pointer;
+}
+
+.burger span{
+  width:22px;
+  height:1px;
+  background:var(--cream);
+}
+
+@media(max-width:820px){
+
+  .nlinks{
+    position:fixed;
+    top:0;
+    right:-100%;
+
+    width:68%;
+    max-width:280px;
+    height:100vh;
+
+    background:var(--navy2);
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:28px;
+
+    border-left:1px solid var(--line);
+
+    padding-left:36px;
+
+    transition:.4s;
+  }
+
+  .nlinks.open{
+    right:0;
+  }
+
+  .burger{
+    display:flex;
+  }
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+  min-height:100svh;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+
+  text-align:center;
+
+  position:relative;
+
+  padding:150px 18px 50px;
+}
+
+.hero::before{
+  content:'';
+
+  position:absolute;
+
+  width:760px;
+  height:760px;
+
+  left:50%;
+  top:38%;
+
+  transform:translate(-50%,-50%);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(201,162,77,.14),
+      transparent 65%
+    );
+
+  pointer-events:none;
+}
+
+.seal{
+  position:relative;
+  width:96px;
+  height:96px;
+  margin-bottom:28px;
+}
+
+.seal svg{
+  width:100%;
+  height:100%;
+  animation:spin 24s linear infinite;
+}
+
+.seal-core{
+  position:absolute;
+  inset:0;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:18px;
+}
+
+@keyframes spin{
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+.hero-tag{
+  font-style:italic;
+  color:var(--gold-l);
+  font-size:16px;
+  margin-bottom:14px;
+}
+
+.hero h1{
+  font-size:clamp(58px,13vw,150px);
+  font-weight:400;
+
+  line-height:1.05;
+
+  letter-spacing:-2px;
+
+  padding-bottom:.08em;
+
+  background:
+    linear-gradient(
+      180deg,
+      #fff,
+      #d9cba3 55%,
+      #9c874f
+    );
+
+  -webkit-background-clip:text;
+  background-clip:text;
+
+  color:transparent;
+}
+
+.hero-desc{
+  max-width:460px;
+  margin:22px auto 6px;
+
+  color:var(--muted);
+
+  font-size:15px;
+  line-height:1.8;
+}
+
+.hero-btns{
+  display:flex;
+  gap:14px;
+  justify-content:center;
+  flex-wrap:wrap;
+
+  margin-top:28px;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:14px 28px;
+
+  border-radius:999px;
+
+  border:1px solid var(--line);
+
+  font-size:12px;
+  letter-spacing:1px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.06),
+      rgba(255,255,255,.02)
+    );
+
+  transition:.3s;
+
+  cursor:pointer;
+}
+
+.btn:hover{
+  transform:translateY(-3px);
+  border-color:var(--gold);
+  color:var(--gold-l);
+}
+
+.btn.solid{
+  background:
+    linear-gradient(
+      180deg,
+      var(--gold-l),
+      var(--gold)
+    );
+
+  color:var(--navy2);
+  font-weight:500;
+}
+
+.scroll-cue{
+  margin-top:46px;
+
+  font-size:10px;
+  letter-spacing:4px;
+
+  color:rgba(244,239,228,.32);
+}
+
+
+/* =========================
+   MARQUEE
+========================= */
+
+.marquee{
+  background:var(--navy2);
+
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+
+  overflow:hidden;
+
+  padding:14px 0;
+}
+
+.mtrack{
+  display:flex;
+  width:max-content;
+  gap:36px;
+
+  animation:mq 26s linear infinite;
+}
+
+.mtrack span{
+  font-size:12.5px;
+  letter-spacing:3px;
+
+  color:var(--gold-l);
+
+  white-space:nowrap;
+}
+
+@keyframes mq{
+  to{
+    transform:translateX(-50%);
+  }
+}
+
+
+/* =========================
+   ABOUT
+========================= */
+
+.about .wrap{
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:60px;
+  align-items:center;
+}
+
+@media(max-width:860px){
+
+  .about .wrap{
+    grid-template-columns:1fr;
+  }
+}
+
+.section-label{
+  color:var(--gold);
+  font-style:italic;
+  font-size:16px;
+  margin-bottom:8px;
+}
+
+.about h2{
+  font-size:clamp(30px,4.2vw,46px);
+  font-weight:400;
+  line-height:1.05;
+
+  margin-bottom:18px;
+}
+
+.about p{
+  color:var(--muted);
+  max-width:52ch;
+
+  font-size:14.5px;
+  line-height:1.8;
+
+  margin-bottom:12px;
+}
+
+.quote-box{
+  margin-top:18px;
+  padding-left:20px;
+
+  border-left:1px solid var(--gold);
+}
+
+.quote-box p{
+  font-size:19px;
+  font-style:italic;
+  color:var(--cream);
+
+  font-family:'Fraunces',serif;
+}
+
+.ghost-panel{
+  position:relative;
+
+  min-height:360px;
+
+  border-radius:20px;
+
+  border:1px solid var(--line);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(201,162,77,.1),
+      transparent 60%
+    );
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  overflow:hidden;
+}
+
+.ghost{
+  font-size:clamp(80px,11vw,140px);
+  color:rgba(244,239,228,.05);
+  letter-spacing:-4px;
+}
+
+.ring{
+  position:absolute;
+
+  width:250px;
+  height:250px;
+
+  border:1px solid var(--line);
+
+  border-radius:50%;
+}
+
+
+/* =========================
+   MENU
+========================= */
+
+.menu-head{
+  text-align:center;
+  margin-bottom:44px;
+}
+
+.menu-head h2{
+  font-size:clamp(32px,4.4vw,48px);
+  font-weight:400;
+}
+
+.tabs{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+
+  margin-top:24px;
+
+  flex-wrap:wrap;
+}
+
+.tab{
+  border:1px solid var(--line);
+
+  padding:9px 22px;
+
+  font-size:12px;
+  letter-spacing:.6px;
+
+  background:none;
+
+  color:var(--cream);
+
+  cursor:pointer;
+
+  border-radius:999px;
+
+  transition:.3s;
+}
+
+.tab.active{
+  background:var(--gold);
+  color:var(--navy2);
+  border-color:var(--gold);
+}
+
+.menu-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+
+@media(max-width:860px){
+  .menu-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:560px){
+  .menu-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+.card{
+  position:relative;
+
+  height:400px;
+
+  border-radius:18px;
+
+  overflow:hidden;
+
+  border:1px solid var(--line);
+
+  background:
+    linear-gradient(
+      150deg,
+      #111a2b,
+      #0a0f1c
+    );
+
+  isolation:isolate;
+}
+
+.card.hide{
+  display:none;
+}
+
+.card video{
+  position:absolute;
+  inset:0;
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  z-index:-2;
+}
+
+.card::after{
+  content:'';
+
+  position:absolute;
+  inset:0;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,.05),
+      rgba(0,0,0,.2) 42%,
+      rgba(0,0,0,.9) 100%
+    );
+
+  z-index:-1;
+}
+
+.card-content{
+  position:absolute;
+
+  left:20px;
+  right:20px;
+  bottom:20px;
+}
+
+.card-content .num{
+  font-size:10px;
+  letter-spacing:3px;
+
+  color:var(--gold-l);
+
+  opacity:.75;
+}
+
+.card-content h3{
+  font-size:22px;
+  font-weight:400;
+
+  margin-top:5px;
+}
+
+.card-content p{
+  font-size:12px;
+
+  color:var(--muted);
+
+  margin-top:6px;
+
+  max-width:32ch;
+}
+
+.card-content .price{
+  display:block;
+
+  margin-top:9px;
+
+  font-size:12.5px;
+
+  color:var(--gold-l);
+}
+
+@media(max-width:560px){
+
+  .card{
+    height:320px;
+  }
+}
+
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact h2{
+  font-size:clamp(38px,6.2vw,74px);
+
+  font-weight:400;
+
+  text-align:center;
+}
+
+.contact-sub{
+  text-align:center;
+
+  color:var(--muted);
+
+  margin:16px auto 36px;
+
+  max-width:46ch;
+
+  font-size:14.5px;
+}
+
+.cbtns{
+  display:flex;
+
+  justify-content:center;
+
+  gap:12px;
+
+  flex-wrap:wrap;
+
+  margin-bottom:54px;
+}
+
+.cbtn{
+  display:flex;
+  align-items:center;
+  gap:9px;
+
+  padding:13px 22px;
+
+  border-radius:999px;
+
+  border:1px solid var(--line);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.06),
+      rgba(255,255,255,.015)
+    );
+
+  font-size:12px;
+
+  transition:.3s;
+}
+
+.cbtn:hover{
+  border-color:var(--gold);
+  color:var(--gold-l);
+  transform:translateY(-3px);
+}
+
+.cbtn svg{
+  width:15px;
+  height:15px;
+
+  stroke:currentColor;
+  fill:none;
+
+  stroke-width:1.8;
+}
+
+
+/* =========================
+   RESERVATION FORM
+========================= */
+
+.book{
+  max-width:620px;
+
+  margin:0 auto;
+
+  display:flex;
+  flex-direction:column;
+
+  gap:16px;
+}
+
+.book-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+
+.book-field{
+  position:relative;
+}
+
+.book-field label{
+  display:block;
+
+  margin-bottom:7px;
+
+  color:rgba(244,239,228,.42);
+
+  font-size:10px;
+
+  letter-spacing:1.5px;
+
+  text-transform:uppercase;
+}
+
+.book input,
+.book textarea,
+.book select{
+
+  width:100%;
+
+  background:rgba(255,255,255,.025);
+
+  border:1px solid rgba(201,162,77,.18);
+
+  border-radius:10px;
+
+  color:var(--cream);
+
+  padding:13px 14px;
+
+  font-family:'Jost',sans-serif;
+
+  font-size:14px;
+
+  outline:none;
+
+  transition:.25s;
+}
+
+.book input::placeholder,
+.book textarea::placeholder{
+  color:rgba(244,239,228,.30);
+}
+
+.book input:focus,
+.book textarea:focus,
+.book select:focus{
+  border-color:var(--gold);
+  background:rgba(255,255,255,.04);
+}
+
+.book textarea{
+  height:88px;
+  resize:vertical;
+}
+
+.book select{
+  appearance:none;
+
+  cursor:pointer;
+
+  background-color:#0c1321;
+}
+
+.book select option{
+  background:#0c1321;
+  color:var(--cream);
+}
+
+.book input[type="date"],
+.book input[type="time"]{
+  color-scheme:dark;
+}
+
+.book .btn{
+  margin-top:4px;
+  border:0;
+}
+
+.note{
+  min-height:20px;
+
+  font-size:11.5px;
+
+  color:rgba(244,239,228,.4);
+
+  text-align:center;
+
+  line-height:1.5;
+}
+
+@media(max-width:560px){
+
+  .book-row{
+    grid-template-columns:1fr;
+    gap:16px;
+  }
+
+  .book{
+    width:100%;
+  }
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+  text-align:center;
+
+  padding:30px 20px;
+
+  font-size:11px;
+
+  letter-spacing:2px;
+
+  color:rgba(244,239,228,.3);
+
+  border-top:1px solid var(--line);
+}
+
+
+/* =========================
+   FLOATING BUTTONS
+========================= */
+
+.dock{
+  position:fixed;
+
+  right:18px;
+  bottom:18px;
+
+  display:flex;
+  flex-direction:column;
+
+  gap:11px;
+
+  z-index:900;
+}
+
+.fab{
+  width:46px;
+  height:46px;
+
+  border-radius:50%;
+
+  background:var(--navy2);
+
+  border:1px solid var(--line);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:var(--gold-l);
+
+  font-size:17px;
+
+  box-shadow:0 10px 30px rgba(0,0,0,.35);
+
+  transition:.3s;
+}
+
+.fab:hover{
+  background:var(--gold);
+  color:var(--navy2);
+}
+
+.top{
+  opacity:0;
+  pointer-events:none;
+}
+
+.top.show{
+  opacity:1;
+  pointer-events:auto;
+}
+</style>
+</head>
+
+<body>
+
+<div id="progress"></div>
+
+
+<!-- =========================
+     NAV
+========================= -->
+
+<nav class="nav" id="nav">
+
+  <a href="#home" class="logo">
+    Manga
+  </a>
+
+  <div class="nlinks" id="nlinks">
+
+    <a href="#home" class="nl">Home</a>
+    <a href="#about" class="nl">About</a>
+    <a href="#menu" class="nl">Menu</a>
+    <a href="#contact" class="nl">Contact</a>
+
+  </div>
+
+  <button class="burger" id="burger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+</nav>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<header class="hero" id="home">
+
+  <div class="seal">
+
+    <svg viewBox="0 0 100 100">
+
+      <defs>
+
+        <path
+          id="circlePath"
+          d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"
+        />
+
+      </defs>
+
+      <circle
+        cx="50"
+        cy="50"
+        r="48"
+        fill="none"
+        stroke="#c9a24d"
+        stroke-width=".6"
+      />
+
+      <text
+        font-size="7"
+        letter-spacing="2"
+        fill="#eccf94"
+      >
+
+        <textPath href="#circlePath">
+          MANGA ✦ TASHKENT ✦ EST. 2019 ✦
+        </textPath>
+
+      </text>
+
+    </svg>
+
+    <div class="seal-core">
+      ☕
+    </div>
+
+  </div>
+
+  <p class="hero-tag">
+    An old-money coffeehouse
+  </p>
+
+  <h1>
+    Manga
+  </h1>
+
+  <p class="hero-desc">
+    Select beans, handcrafted pastries,
+    and the quiet art of slowing down.
+  </p>
+
+  <div class="hero-btns">
+
+    <a
+      href="#menu"
+      class="btn solid"
+    >
+      View Menu
+    </a>
+
+    <a
+      href="#contact"
+      class="btn"
+    >
+      Reserve a Table
+    </a>
+
+  </div>
+
+  <p class="scroll-cue">
+    SCROLL DOWN
+  </p>
+
+</header>
+
+
+<!-- =========================
+     MARQUEE
+========================= -->
+
+<div class="marquee">
+
+  <div class="mtrack">
+
+    <span>
+      COFFEE ✦ PASTRY ✦ HANDCRAFTED ✦
+      SELECT BEANS ✦ SLOW MORNINGS ✦
+      TASHKENT ✦
+    </span>
+
+    <span>
+      COFFEE ✦ PASTRY ✦ HANDCRAFTED ✦
+      SELECT BEANS ✦ SLOW MORNINGS ✦
+      TASHKENT ✦
+    </span>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     ABOUT
+========================= -->
+
+<section
+  class="about"
+  id="about"
+>
+
+  <div class="wrap">
+
+    <div class="reveal">
+
+      <p class="section-label">
+        Our Philosophy
+      </p>
+
+      <h2>
+        Slowness is a luxury
+      </h2>
+
+      <p>
+        Manga has offered guests more than coffee
+        since 2019 — a few minutes of quiet in a busy city.
+      </p>
+
+      <p>
+        Every bean is hand-selected,
+        every plate carefully made.
+        Nothing here is ever rushed.
+      </p>
+
+      <div class="quote-box">
+
+        <p>
+          "True taste speaks through quality,
+          not through excess words."
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="ghost-panel reveal">
+
+      <div class="ring"></div>
+
+      <span class="ghost">
+        M
+      </span>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     MENU
+========================= -->
+
+<section id="menu">
+
+  <div class="wrap">
+
+    <div class="menu-head reveal">
+
+      <p class="section-label">
+        Menu
+      </p>
+
+      <h2>
+        Taste the moment
+      </h2>
+
+      <div class="tabs">
+
+        <button
+          class="tab active"
+          data-f="all"
+        >
+          All
+        </button>
+
+        <button
+          class="tab"
+          data-f="coffee"
+        >
+          Coffee
+        </button>
+
+        <button
+          class="tab"
+          data-f="pastry"
+        >
+          Pastry
+        </button>
+
+      </div>
+
+    </div>
+
+    <div
+      class="menu-grid"
+      id="menuGrid"
+    ></div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     CONTACT / RESERVATION
+========================= -->
+
+<section
+  class="contact"
+  id="contact"
+>
+
+  <div class="wrap">
+
+    <p
+      class="section-label"
+      style="text-align:center"
+    >
+      Visit Us
+    </p>
+
+    <h2>
+      We'll be expecting you
+    </h2>
+
+    <p class="contact-sub">
+      Reach out for questions or reservations.
+      Open daily 08:00 – 23:00, Tashkent.
+    </p>
+
+
+    <div class="cbtns">
+
+      <a
+        class="cbtn"
+        href="tel:+998943330001"
+      >
+
+        <svg viewBox="0 0 24 24">
+          <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7 12.8 12.8 0 0 0 .7 2.8 2 2 0 0 1-.4 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4 12.8 12.8 0 0 0 2.8.7A2 2 0 0 1 22 16.9Z"/>
+        </svg>
+
+        Call
+
+      </a>
+
+
+      <a
+        class="cbtn"
+        href="https://t.me/sultonow_01"
+        target="_blank"
+        rel="noopener"
+      >
+
+        <svg viewBox="0 0 24 24">
+          <path d="M21.6 3.2 2.9 10.4c-1.28.5-1.27 1.2-.23 1.5l4.8 1.5 1.85 5.62c.22.62.11.87.75.87.49 0 .7-.23.96-.5l2.33-2.26 4.84 3.58c.89.49 1.53.24 1.75-.83l3.17-15.03c.32-1.3-.5-1.89-1.51-1.65Z"/>
+        </svg>
+
+        Telegram
+
+      </a>
+
+
+      <a
+        class="cbtn"
+        href="https://instagram.com/01_sultonow"
+        target="_blank"
+        rel="noopener"
+      >
+
+        <svg viewBox="0 0 24 24">
+
+          <rect
+            x="3"
+            y="3"
+            width="18"
+            height="18"
+            rx="5"
+          />
+
+          <circle
+            cx="12"
+            cy="12"
+            r="4"
+          />
+
+          <circle
+            cx="17.5"
+            cy="6.5"
+            r="1"
+          />
+
+        </svg>
+
+        Instagram
+
+      </a>
+
+
+      <a
+        class="cbtn"
+        href="https://www.google.com/maps/search/?api=1&query=Manga+cafe+Tashkent"
+        target="_blank"
+        rel="noopener"
+      >
+
+        <svg viewBox="0 0 24 24">
+
+          <path
+            d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"
+          />
+
+          <circle
+            cx="12"
+            cy="10"
+            r="2.5"
+          />
+
+        </svg>
+
+        Map
+
+      </a>
+
+    </div>
+
+
+    <!-- =====================
+         RESERVATION FORM
+    ====================== -->
+
+    <form
+      class="book"
+      id="bookForm"
+    >
+
+      <!-- NAME + PHONE -->
+
+      <div class="book-row">
+
+        <div class="book-field">
+
+          <label for="fname">
+            Your name
+          </label>
+
+          <input
+            type="text"
+            id="fname"
+            placeholder="John Smith"
+            required
+          >
+
+        </div>
+
+
+        <div class="book-field">
+
+          <label for="fphone">
+            Phone number
+          </label>
+
+          <input
+            type="tel"
+            id="fphone"
+            placeholder="+998 90 123 45 67"
+            required
+          >
+
+        </div>
+
+      </div>
+
+
+      <!-- GUESTS + DATE -->
+
+      <div class="book-row">
+
+        <div class="book-field">
+
+          <label for="fguests">
+            Number of guests
+          </label>
+
+          <select
+            id="fguests"
+            required
+          >
+
+            <option value="">
+              Select guests
+            </option>
+
+            <option value="1">
+              1 guest
+            </option>
+
+            <option value="2">
+              2 guests
+            </option>
+
+            <option value="3">
+              3 guests
+            </option>
+
+            <option value="4">
+              4 guests
+            </option>
+
+            <option value="5">
+              5 guests
+            </option>
+
+            <option value="6">
+              6 guests
+            </option>
+
+            <option value="7">
+              7 guests
+            </option>
+
+            <option value="8">
+              8 guests
+            </option>
+
+            <option value="9">
+              9 guests
+            </option>
+
+            <option value="10">
+              10 guests
+            </option>
+
+            <option value="11">
+              11 guests
+            </option>
+
+            <option value="12">
+              12 guests
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="book-field">
+
+          <label for="fdate">
+            Reservation date
+          </label>
+
+          <input
+            type="date"
+            id="fdate"
+            required
+          >
+
+        </div>
+
+      </div>
+
+
+      <!-- TIME + MESSAGE -->
+
+      <div class="book-row">
+
+        <div class="book-field">
+
+          <label for="ftime">
+            Reservation time
+          </label>
+
+          <input
+            type="time"
+            id="ftime"
+            min="08:00"
+            max="22:30"
+            required
+          >
+
+        </div>
+
+
+        <div class="book-field">
+
+          <label for="fmsg">
+            Special request
+          </label>
+
+          <input
+            type="text"
+            id="fmsg"
+            placeholder="Birthday, window table..."
+          >
+
+        </div>
+
+      </div>
+
+
+      <button
+        type="submit"
+        class="btn solid"
+        id="reservationBtn"
+      >
+        Send Reservation Request
+      </button>
+
+
+      <p
+        class="note"
+        id="formNote"
+      >
+        We'll receive your request and contact you shortly.
+      </p>
+
+    </form>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+  © <span id="year"></span>
+  MANGA — TASHKENT
+
+</footer>
+
+
+<!-- =========================
+     FLOATING DOCK
+========================= -->
+
+<div class="dock">
+
+  <a
+    href="tel:+998943330001"
+    class="fab"
+  >
+    ☎
+  </a>
+
+  <a
+    href="https://t.me/sultonow_01"
+    target="_blank"
+    rel="noopener"
+    class="fab"
+  >
+    ✈
+  </a>
+
+  <button
+    class="fab top"
+    id="toTop"
+  >
+    ↑
+  </button>
+
+</div>
+
+
+<!-- =========================
+     SCRIPTS
+========================= -->
+
+<script src="menu-data.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+/* =========================================
+   SUPABASE
+========================================= */
+
+const SUPABASE_URL =
+  'https://famncvtbvlalztkpsaro.supabase.co';
+
+const SUPABASE_PUBLISHABLE_KEY =
+  'sb_publishable_HV-V501FNugJnclZqK8_IQ__kq8KABm';
+
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+
+/* =========================================
+   NAVIGATION
+========================================= */
+
+const nav =
+  document.getElementById('nav');
+
+const progress =
+  document.getElementById('progress');
+
+const burger =
+  document.getElementById('burger');
+
+const nlinks =
+  document.getElementById('nlinks');
+
+const toTop =
+  document.getElementById('toTop');
+
+
+window.addEventListener(
+  'scroll',
+  () => {
+
+    nav.classList.toggle(
+      'scrolled',
+      window.scrollY > 30
+    );
+
+
+    const h =
+      document.documentElement;
+
+    const scrollHeight =
+      h.scrollHeight - h.clientHeight;
+
+
+    if(scrollHeight > 0){
+
+      progress.style.width =
+        (
+          h.scrollTop /
+          scrollHeight *
+          100
+        ) + '%';
+
+    }
+
+
+    toTop.classList.toggle(
+      'show',
+      window.scrollY > 500
+    );
+
+  }
+);
+
+
+burger.addEventListener(
+  'click',
+  () => {
+
+    nlinks.classList.toggle(
+      'open'
+    );
+
+  }
+);
+
+
+document
+  .querySelectorAll('.nl')
+  .forEach(link => {
+
+    link.addEventListener(
+      'click',
+      () => {
+
+        nlinks.classList.remove(
+          'open'
+        );
+
+      }
+    );
+
+  });
+
+
+toTop.addEventListener(
+  'click',
+  () => {
+
+    window.scrollTo({
+      top:0,
+      behavior:'smooth'
+    });
+
+  }
+);
+
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function esc(value){
+
+  return String(value || '')
+    .replace(
+      /[&<>"']/g,
+      char => ({
+        '&':'&amp;',
+        '<':'&lt;',
+        '>':'&gt;',
+        '"':'&quot;',
+        "'":'&#39;'
+      }[char])
+    );
+
+}
+
+
+/* =========================================
+   MENU
+========================================= */
+
+function renderMenu(){
+
+  const items =
+    loadMenu();
+
+  const grid =
+    document.getElementById(
+      'menuGrid'
+    );
+
+
+  grid.innerHTML =
+    items.map(
+      (item,index) => `
+
+        <article
+          class="card reveal"
+          data-cat="${esc(item.cat)}"
+        >
+
+          <video
+            muted
+            loop
+            playsinline
+            preload="none"
+            data-src="${esc(item.video)}"
+          ></video>
+
+
+          <div class="card-content">
+
+            <span class="num">
+              ${String(index + 1).padStart(2,'0')}
+            </span>
+
+            <h3>
+              ${esc(item.title)}
+            </h3>
+
+            <p>
+              ${esc(item.desc)}
+            </p>
+
+            <span class="price">
+              ${esc(item.price)}
+            </span>
+
+          </div>
+
+        </article>
+
+      `
+    ).join('');
+
+}
+
+
+/* =========================================
+   VIDEO + REVEAL OBSERVER
+========================================= */
+
+function initObservers(){
+
+  const observer =
+    new IntersectionObserver(
+      entries => {
+
+        entries.forEach(
+          entry => {
+
+            const video =
+              entry.target.querySelector(
+                'video'
+              );
+
+
+            if(entry.isIntersecting){
+
+              entry.target.classList.add(
+                'in'
+              );
+
+
+              if(video){
+
+                if(!video.src){
+
+                  video.src =
+                    video.dataset.src;
+
+                }
+
+                video
+                  .play()
+                  .catch(() => {});
+
+              }
+
+            }else{
+
+              if(video){
+
+                video.pause();
+
+              }
+
+            }
+
+          }
+        );
+
+      },
+      {
+        threshold:.2
+      }
+    );
+
+
+  document
+    .querySelectorAll('.reveal')
+    .forEach(
+      element => observer.observe(element)
+    );
+
+}
+
+
+/* =========================================
+   MENU FILTER
+========================================= */
+
+function attachFilter(){
+
+  document
+    .querySelectorAll('.tab')
+    .forEach(button => {
+
+      button.addEventListener(
+        'click',
+        () => {
+
+          document
+            .querySelectorAll('.tab')
+            .forEach(
+              tab =>
+                tab.classList.remove(
+                  'active'
+                )
+            );
+
+
+          button.classList.add(
+            'active'
+          );
+
+
+          const filter =
+            button.dataset.f;
+
+
+          document
+            .querySelectorAll('.card')
+            .forEach(card => {
+
+              card.classList.toggle(
+                'hide',
+                filter !== 'all' &&
+                card.dataset.cat !== filter
+              );
+
+            });
+
+        }
+      );
+
+    });
+
+}
+
+
+/* =========================================
+   INITIAL MENU
+========================================= */
+
+renderMenu();
+
+initObservers();
+
+attachFilter();
+
+
+/* =========================================
+   DATE LIMIT
+========================================= */
+
+const dateInput =
+  document.getElementById(
+    'fdate'
+  );
+
+
+const today =
+  new Date();
+
+
+const year =
+  today.getFullYear();
+
+
+const month =
+  String(
+    today.getMonth() + 1
+  ).padStart(2,'0');
+
+
+const day =
+  String(
+    today.getDate()
+  ).padStart(2,'0');
+
+
+dateInput.min =
+  `${year}-${month}-${day}`;
+
+
+/* =========================================
+   RESERVATION
+========================================= */
+
+const bookingForm =
+  document.getElementById(
+    'bookForm'
+  );
+
+
+const reservationBtn =
+  document.getElementById(
+    'reservationBtn'
+  );
+
+
+const formNote =
+  document.getElementById(
+    'formNote'
+  );
+
+
+bookingForm.addEventListener(
+  'submit',
+  async event => {
+
+    event.preventDefault();
+
+
+    const name =
+      document
+        .getElementById('fname')
+        .value
+        .trim();
+
+
+    const phone =
+      document
+        .getElementById('fphone')
+        .value
+        .trim();
+
+
+    const guests =
+      Number(
+        document
+          .getElementById('fguests')
+          .value
+      );
+
+
+    const reservationDate =
+      document
+        .getElementById('fdate')
+        .value;
+
+
+    const reservationTime =
+      document
+        .getElementById('ftime')
+        .value;
+
+
+    const message =
+      document
+        .getElementById('fmsg')
+        .value
+        .trim();
+
+
+    if(
+      !name ||
+      !phone ||
+      !guests ||
+      !reservationDate ||
+      !reservationTime
+    ){
+
+      formNote.textContent =
+        'Please complete all required fields.';
+
+      return;
+
+    }
+
+
+    reservationBtn.disabled =
+      true;
+
+    reservationBtn.textContent =
+      'Sending...';
+
+    formNote.textContent =
+      'Sending your reservation request...';
+
+
+    const {
+      error
+    } =
+      await supabaseClient
+        .from('reservations')
+        .insert({
+
+          name:name,
+
+          phone:phone,
+
+          guests:guests,
+
+          reservation_date:
+            reservationDate,
+
+          reservation_time:
+            reservationTime,
+
+          message:
+            message || null,
+
+          status:'new'
+
+        });
+
+
+    if(error){
+
+      console.error(
+        'Supabase reservation error:',
+        error
+      );
+
+
+      reservationBtn.disabled =
+        false;
+
+      reservationBtn.textContent =
+        'Send Reservation Request';
+
+
+      formNote.textContent =
+        'Something went wrong. Please try again.';
+
+      return;
+
+    }
+
+
+    reservationBtn.textContent =
+      'Request Received ✓';
+
+    formNote.textContent =
+      'Your reservation request has been received. MANGA will contact you soon.';
+
+
+    bookingForm.reset();
+
+
+    dateInput.min =
+      `${year}-${month}-${day}`;
+
+
+    setTimeout(
+      () => {
+
+        reservationBtn.disabled =
+          false;
+
+        reservationBtn.textContent =
+          'Send Reservation Request';
+
+      },
+      3000
+    );
+
+  }
+);
+
+
+/* =========================================
+   YEAR
+========================================= */
+
+document.getElementById(
+  'year'
+).textContent =
+  new Date().getFullYear();
+
+</script>
+
+</body>
+</html>
