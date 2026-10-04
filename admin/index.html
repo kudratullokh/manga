@@ -36,6 +36,10 @@
   --blue:#8caedb;
   --blue-bg:rgba(140,174,219,.08);
 
+  --c-new:#6d97ea;
+  --c-confirmed:#86dba0;
+  --c-cancelled:#cf5f5c;
+
   --shadow:0 24px 70px rgba(0,0,0,.28);
 }
 
@@ -850,7 +854,7 @@ a{
   word-break:break-word;
 }
 
-.info-value.empty{
+.info-value.is-empty{
   color:var(--muted2);
 
   font-style:italic;
@@ -880,6 +884,656 @@ a{
   font-size:9px;
 
   letter-spacing:.45px;
+}
+
+/* =========================
+   RANGE TABS
+========================= */
+
+.range-tabs{
+  position:relative;
+
+  display:inline-flex;
+
+  padding:4px;
+
+  border:1px solid var(--line);
+
+  border-radius:999px;
+
+  background:rgba(255,255,255,.025);
+}
+
+.range-tab{
+  position:relative;
+  z-index:1;
+
+  border:0;
+
+  background:none;
+
+  color:var(--muted);
+
+  border-radius:999px;
+
+  padding:9px 15px;
+
+  font-size:11px;
+
+  white-space:nowrap;
+
+  transition:color .25s ease;
+}
+
+.range-tab:hover{
+  color:var(--cream);
+}
+
+.range-tab.active{
+  color:#080d18;
+
+  font-weight:600;
+}
+
+.range-pill{
+  position:absolute;
+
+  top:4px;
+  bottom:4px;
+  left:0;
+
+  border-radius:999px;
+
+  background:
+    linear-gradient(
+      180deg,
+      var(--gold-light),
+      var(--gold)
+    );
+
+  box-shadow:
+    0 6px 18px rgba(201,162,77,.18);
+
+  transition:
+    transform .35s cubic-bezier(.2,.8,.2,1),
+    width .35s cubic-bezier(.2,.8,.2,1);
+}
+
+.range-caption{
+  display:block;
+
+  margin-top:9px;
+
+  color:var(--muted2);
+
+  font-size:10px;
+
+  letter-spacing:.4px;
+
+  text-align:right;
+}
+
+/* =========================
+   STATS
+========================= */
+
+.stat-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(4,1fr);
+
+  gap:12px;
+}
+
+.stat-card{
+  position:relative;
+
+  overflow:hidden;
+
+  display:flex;
+  flex-direction:column;
+
+  gap:10px;
+
+  min-width:0;
+
+  padding:18px 18px 16px;
+
+  border:1px solid var(--line-soft);
+
+  border-radius:18px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.045),
+      rgba(255,255,255,.012)
+    );
+
+  color:var(--cream);
+
+  text-align:left;
+
+  transition:
+    border-color .25s ease,
+    transform .25s ease,
+    box-shadow .25s ease,
+    opacity .25s ease;
+}
+
+.stat-card::before{
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  opacity:0;
+
+  pointer-events:none;
+
+  background:
+    radial-gradient(
+      circle at 85% 0%,
+      var(--tone-bg),
+      transparent 60%
+    );
+
+  transition:opacity .3s ease;
+}
+
+.stat-card:hover{
+  transform:translateY(-2px);
+
+  border-color:var(--line);
+}
+
+.stat-card.active{
+  border-color:var(--tone);
+
+  box-shadow:
+    0 14px 40px rgba(0,0,0,.22),
+    inset 0 0 0 1px var(--tone-ring);
+}
+
+.stat-card.active::before{
+  opacity:1;
+}
+
+.stat-grid.filtered .stat-card:not(.active){
+  opacity:.62;
+}
+
+.stat-grid.filtered .stat-card:not(.active):hover{
+  opacity:1;
+}
+
+.stat-card[data-status="all"]{
+  --tone:var(--gold);
+  --tone-bg:rgba(201,162,77,.13);
+  --tone-ring:rgba(201,162,77,.25);
+}
+
+.stat-card[data-status="new"]{
+  --tone:var(--c-new);
+  --tone-bg:rgba(109,151,234,.14);
+  --tone-ring:rgba(109,151,234,.25);
+}
+
+.stat-card[data-status="confirmed"]{
+  --tone:var(--c-confirmed);
+  --tone-bg:rgba(134,219,160,.12);
+  --tone-ring:rgba(134,219,160,.22);
+}
+
+.stat-card[data-status="cancelled"]{
+  --tone:var(--c-cancelled);
+  --tone-bg:rgba(207,95,92,.14);
+  --tone-ring:rgba(207,95,92,.25);
+}
+
+.stat-top{
+  position:relative;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:8px;
+}
+
+.stat-label{
+  display:flex;
+  align-items:center;
+
+  gap:8px;
+
+  color:var(--muted);
+
+  font-size:9px;
+
+  letter-spacing:1.6px;
+
+  text-transform:uppercase;
+}
+
+.stat-dot{
+  position:relative;
+
+  width:8px;
+  height:8px;
+
+  border-radius:50%;
+
+  background:var(--tone);
+}
+
+.stat-card.attention .stat-dot::after{
+  content:"";
+
+  position:absolute;
+  inset:-4px;
+
+  border-radius:50%;
+
+  border:1px solid var(--tone);
+
+  animation:ping 1.8s ease-out infinite;
+}
+
+@keyframes ping{
+  0%{
+    transform:scale(.6);
+    opacity:.9;
+  }
+
+  100%{
+    transform:scale(1.9);
+    opacity:0;
+  }
+}
+
+.stat-share{
+  color:var(--muted2);
+
+  font-size:10px;
+
+  font-variant-numeric:tabular-nums;
+}
+
+.stat-value{
+  position:relative;
+
+  font-family:Fraunces,serif;
+
+  font-size:44px;
+
+  font-weight:400;
+
+  line-height:1;
+
+  letter-spacing:-1px;
+
+  font-variant-numeric:tabular-nums;
+}
+
+.stat-foot{
+  position:relative;
+
+  color:var(--muted2);
+
+  font-size:10px;
+}
+
+.stat-bar{
+  position:relative;
+
+  display:flex;
+
+  gap:2px;
+
+  height:4px;
+
+  margin-top:2px;
+
+  border-radius:4px;
+
+  overflow:hidden;
+
+  background:rgba(255,255,255,.05);
+}
+
+.stat-bar span{
+  height:100%;
+
+  border-radius:4px;
+
+  transition:width .6s cubic-bezier(.2,.8,.2,1);
+}
+
+.seg-new{
+  background:var(--c-new);
+}
+
+.seg-confirmed{
+  background:var(--c-confirmed);
+}
+
+.seg-cancelled{
+  background:var(--c-cancelled);
+}
+
+/* =========================
+   ACTIVITY CHART
+========================= */
+
+.activity-card{
+  margin-top:12px;
+
+  padding:20px 20px 14px;
+
+  border:1px solid var(--line-soft);
+
+  border-radius:18px;
+
+  background:rgba(255,255,255,.018);
+}
+
+.activity-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:14px;
+
+  margin-bottom:16px;
+}
+
+.activity-title{
+  color:var(--muted);
+
+  font-size:9px;
+
+  letter-spacing:1.6px;
+
+  text-transform:uppercase;
+}
+
+.legend{
+  display:flex;
+
+  gap:14px;
+
+  flex-wrap:wrap;
+
+  color:var(--muted);
+
+  font-size:10px;
+}
+
+.legend span{
+  display:flex;
+  align-items:center;
+
+  gap:6px;
+}
+
+.legend i{
+  width:8px;
+  height:8px;
+
+  border-radius:2px;
+}
+
+.activity-plot{
+  position:relative;
+
+  display:flex;
+  align-items:flex-end;
+
+  gap:3px;
+
+  height:120px;
+
+  border-bottom:1px solid var(--line-soft);
+}
+
+.activity-col{
+  position:relative;
+
+  flex:1 1 0;
+
+  min-width:0;
+
+  height:100%;
+
+  display:flex;
+  flex-direction:column-reverse;
+
+  gap:2px;
+
+  cursor:default;
+}
+
+.activity-col::before{
+  content:"";
+
+  position:absolute;
+  inset:0 -1px;
+
+  border-radius:6px;
+
+  background:rgba(255,255,255,.035);
+
+  opacity:0;
+
+  transition:opacity .15s ease;
+}
+
+.activity-col:hover::before,
+.activity-col.hover::before{
+  opacity:1;
+}
+
+.activity-col span{
+  position:relative;
+
+  width:min(100%,22px);
+
+  margin:0 auto;
+
+  border-radius:1px;
+
+  transition:
+    height .5s cubic-bezier(.2,.8,.2,1),
+    opacity .25s ease;
+}
+
+.activity-col span.top{
+  border-radius:4px 4px 1px 1px;
+}
+
+.activity-plot.dim-new .seg-new,
+.activity-plot.dim-confirmed .seg-confirmed,
+.activity-plot.dim-cancelled .seg-cancelled{
+  opacity:.18;
+}
+
+.activity-axis{
+  display:flex;
+  justify-content:space-between;
+
+  margin-top:8px;
+
+  color:var(--muted2);
+
+  font-size:9px;
+
+  letter-spacing:.3px;
+}
+
+.activity-empty{
+  position:absolute;
+  inset:0;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:var(--muted2);
+
+  font-size:11px;
+}
+
+.chart-tip{
+  position:fixed;
+
+  z-index:400;
+
+  min-width:150px;
+
+  padding:11px 13px;
+
+  border:1px solid var(--line);
+
+  border-radius:12px;
+
+  background:rgba(17,26,42,.96);
+
+  box-shadow:var(--shadow);
+
+  pointer-events:none;
+
+  opacity:0;
+
+  transform:translateY(4px);
+
+  transition:
+    opacity .15s ease,
+    transform .15s ease;
+
+  font-size:11px;
+}
+
+.chart-tip.show{
+  opacity:1;
+
+  transform:none;
+}
+
+.chart-tip strong{
+  display:block;
+
+  margin-bottom:7px;
+
+  color:var(--cream);
+
+  font-weight:500;
+}
+
+.chart-tip div{
+  display:flex;
+  align-items:center;
+
+  gap:7px;
+
+  color:var(--muted);
+
+  line-height:1.7;
+}
+
+.chart-tip div b{
+  margin-left:auto;
+
+  color:var(--cream);
+
+  font-weight:500;
+
+  font-variant-numeric:tabular-nums;
+}
+
+.chart-tip i{
+  width:8px;
+  height:8px;
+
+  border-radius:2px;
+}
+
+/* =========================
+   FILTER CHIP
+========================= */
+
+.section-meta{
+  display:flex;
+  align-items:center;
+
+  gap:8px;
+}
+
+.filter-chip{
+  display:none;
+
+  align-items:center;
+
+  gap:7px;
+
+  border:1px solid var(--line);
+
+  border-radius:999px;
+
+  padding:5px 10px;
+
+  background:rgba(255,255,255,.03);
+
+  color:var(--cream);
+
+  font-size:10px;
+}
+
+.filter-chip.show{
+  display:inline-flex;
+}
+
+.filter-chip:hover{
+  border-color:var(--gold);
+}
+
+.filter-chip i{
+  width:7px;
+  height:7px;
+
+  border-radius:50%;
+}
+
+.reservation-card{
+  animation:cardIn .35s ease both;
+}
+
+.reservation-card.leaving{
+  animation:cardOut .3s ease both;
+}
+
+@media(prefers-reduced-motion:reduce){
+
+  .reservation-card,
+  .reservation-card.leaving{
+    animation:none;
+  }
+
+}
+
+@keyframes cardIn{
+  from{
+    opacity:0;
+    transform:translateY(8px);
+  }
+}
+
+@keyframes cardOut{
+  to{
+    opacity:0;
+    transform:translateX(24px);
+  }
 }
 
 /* =========================
@@ -1020,6 +1674,11 @@ a{
       repeat(2,1fr);
   }
 
+  .stat-grid{
+    grid-template-columns:
+      repeat(2,1fr);
+  }
+
 }
 
 @media(max-width:620px){
@@ -1062,6 +1721,54 @@ a{
 
   .page-heading h1{
     font-size:44px;
+  }
+
+  .page-heading > div:last-child{
+    width:100%;
+  }
+
+  .range-tabs{
+    display:flex;
+
+    width:100%;
+  }
+
+  .range-tab{
+    flex:1;
+
+    padding:9px 6px;
+  }
+
+  .range-caption{
+    text-align:left;
+  }
+
+  .stat-grid{
+    gap:9px;
+  }
+
+  .stat-card{
+    padding:15px 14px 13px;
+  }
+
+  .stat-value{
+    font-size:36px;
+  }
+
+  .activity-card{
+    padding:16px 14px 12px;
+  }
+
+  .activity-head{
+    align-items:flex-start;
+
+    flex-direction:column;
+
+    gap:10px;
+  }
+
+  .activity-plot{
+    gap:2px;
   }
 
   .section{
@@ -1274,11 +1981,263 @@ a{
           Dashboard
         </h1>
 
-        <p class="heading-description">
+        <p
+          class="heading-description"
+          id="insightLine"
+        >
           Manage reservations.
         </p>
 
       </div>
+
+
+      <div>
+
+        <div
+          class="range-tabs"
+          id="rangeTabs"
+        >
+
+          <span class="range-pill"></span>
+
+          <button
+            class="range-tab active"
+            data-range="today"
+          >
+            Today
+          </button>
+
+          <button
+            class="range-tab"
+            data-range="7d"
+          >
+            7 Days
+          </button>
+
+          <button
+            class="range-tab"
+            data-range="30d"
+          >
+            30 Days
+          </button>
+
+          <button
+            class="range-tab"
+            data-range="all"
+          >
+            All Time
+          </button>
+
+        </div>
+
+        <span
+          class="range-caption"
+          id="rangeCaption"
+        ></span>
+
+      </div>
+
+    </div>
+
+
+    <!-- =====================
+         OVERVIEW
+    ====================== -->
+
+    <div
+      class="stat-grid"
+      id="statGrid"
+    >
+
+      <button
+        class="stat-card active"
+        data-status="all"
+        aria-pressed="true"
+      >
+
+        <span class="stat-top">
+
+          <span class="stat-label">
+            <span class="stat-dot"></span>
+            All
+          </span>
+
+          <span
+            class="stat-share"
+            data-share="all"
+          ></span>
+
+        </span>
+
+        <strong
+          class="stat-value"
+          data-count="all"
+        >0</strong>
+
+        <span class="stat-foot">
+          requests received
+        </span>
+
+        <span
+          class="stat-bar"
+          data-mix
+        >
+          <span class="seg-new"></span>
+          <span class="seg-confirmed"></span>
+          <span class="seg-cancelled"></span>
+        </span>
+
+      </button>
+
+
+      <button
+        class="stat-card"
+        data-status="new"
+        aria-pressed="false"
+      >
+
+        <span class="stat-top">
+
+          <span class="stat-label">
+            <span class="stat-dot"></span>
+            New
+          </span>
+
+          <span
+            class="stat-share"
+            data-share="new"
+          ></span>
+
+        </span>
+
+        <strong
+          class="stat-value"
+          data-count="new"
+        >0</strong>
+
+        <span class="stat-foot">
+          waiting for reply
+        </span>
+
+        <span class="stat-bar">
+          <span
+            class="seg-new"
+            data-bar="new"
+          ></span>
+        </span>
+
+      </button>
+
+
+      <button
+        class="stat-card"
+        data-status="confirmed"
+        aria-pressed="false"
+      >
+
+        <span class="stat-top">
+
+          <span class="stat-label">
+            <span class="stat-dot"></span>
+            Confirmed
+          </span>
+
+          <span
+            class="stat-share"
+            data-share="confirmed"
+          ></span>
+
+        </span>
+
+        <strong
+          class="stat-value"
+          data-count="confirmed"
+        >0</strong>
+
+        <span class="stat-foot">
+          tables booked
+        </span>
+
+        <span class="stat-bar">
+          <span
+            class="seg-confirmed"
+            data-bar="confirmed"
+          ></span>
+        </span>
+
+      </button>
+
+
+      <button
+        class="stat-card"
+        data-status="cancelled"
+        aria-pressed="false"
+      >
+
+        <span class="stat-top">
+
+          <span class="stat-label">
+            <span class="stat-dot"></span>
+            Cancelled
+          </span>
+
+          <span
+            class="stat-share"
+            data-share="cancelled"
+          ></span>
+
+        </span>
+
+        <strong
+          class="stat-value"
+          data-count="cancelled"
+        >0</strong>
+
+        <span class="stat-foot">
+          did not happen
+        </span>
+
+        <span class="stat-bar">
+          <span
+            class="seg-cancelled"
+            data-bar="cancelled"
+          ></span>
+        </span>
+
+      </button>
+
+    </div>
+
+
+    <div class="activity-card">
+
+      <div class="activity-head">
+
+        <span
+          class="activity-title"
+          id="activityTitle"
+        >
+          Activity
+        </span>
+
+        <div class="legend">
+          <span><i class="seg-new"></i>New</span>
+          <span><i class="seg-confirmed"></i>Confirmed</span>
+          <span><i class="seg-cancelled"></i>Cancelled</span>
+        </div>
+
+      </div>
+
+      <div
+        class="activity-plot"
+        id="activityPlot"
+        role="img"
+      ></div>
+
+      <div
+        class="activity-axis"
+        id="activityAxis"
+      ></div>
 
     </div>
 
@@ -1295,12 +2254,21 @@ a{
           Reservations
         </h2>
 
-        <span
-          class="section-count"
-          id="reservationCount"
-        >
-          0 requests
-        </span>
+        <div class="section-meta">
+
+          <button
+            class="filter-chip"
+            id="filterChip"
+          ></button>
+
+          <span
+            class="section-count"
+            id="reservationCount"
+          >
+            0 requests
+          </span>
+
+        </div>
 
       </div>
 
@@ -1324,6 +2292,8 @@ a{
 
 
 <div id="toast"></div>
+
+<div class="chart-tip" id="chartTip"></div>
 
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -1380,6 +2350,33 @@ const toast =
 
 const refreshBtn =
   document.getElementById('refreshBtn');
+
+const statGrid =
+  document.getElementById('statGrid');
+
+const rangeTabs =
+  document.getElementById('rangeTabs');
+
+const rangeCaption =
+  document.getElementById('rangeCaption');
+
+const insightLine =
+  document.getElementById('insightLine');
+
+const activityPlot =
+  document.getElementById('activityPlot');
+
+const activityAxis =
+  document.getElementById('activityAxis');
+
+const activityTitle =
+  document.getElementById('activityTitle');
+
+const filterChip =
+  document.getElementById('filterChip');
+
+const chartTip =
+  document.getElementById('chartTip');
 
 
 /* =========================================
@@ -1630,6 +2627,8 @@ function showDashboard(){
 
   dashView.style.display = 'block';
 
+  moveRangePill();
+
   loadReservations();
 
 }
@@ -1713,17 +2712,746 @@ async function loadReservations(){
     return;
   }
 
-  const reservations =
+  allReservations =
     data || [];
 
+  renderDashboard();
+
+}
+
+
+/* =========================================
+   FILTERS & OVERVIEW
+========================================= */
+
+const STATUSES =
+  ['new','confirmed','cancelled'];
+
+const STATUS_NAMES = {
+  all:'All',
+  new:'New',
+  confirmed:'Confirmed',
+  cancelled:'Cancelled'
+};
+
+const RANGE_DAYS = {
+  today:1,
+  '7d':7,
+  '30d':30
+};
+
+const RANGE_TEXT = {
+  today:'today',
+  '7d':'in the last 7 days',
+  '30d':'in the last 30 days',
+  all:'so far'
+};
+
+let allReservations = [];
+
+let activeStatus = 'all';
+
+let activeRange = 'today';
+
+
+function getStatus(item){
+
+  return STATUSES.includes(item.status)
+    ? item.status
+    : 'new';
+
+}
+
+
+function startOfDay(date){
+
+  const day =
+    new Date(date);
+
+  day.setHours(0,0,0,0);
+
+  return day;
+
+}
+
+
+function rangeStart(){
+
+  if(activeRange === 'all'){
+    return null;
+  }
+
+  const start =
+    startOfDay(new Date());
+
+  start.setDate(
+    start.getDate() -
+    (RANGE_DAYS[activeRange] - 1)
+  );
+
+  return start;
+
+}
+
+
+function createdDate(item){
+
+  const date =
+    new Date(item.created_at);
+
+  return Number.isNaN(date.getTime())
+    ? null
+    : date;
+
+}
+
+
+function inRange(item){
+
+  const start =
+    rangeStart();
+
+  if(!start){
+    return true;
+  }
+
+  const created =
+    createdDate(item);
+
+  return Boolean(created) &&
+    created >= start;
+
+}
+
+
+function shortDate(date){
+
+  return date.toLocaleDateString(
+    'en-GB',
+    {
+      day:'numeric',
+      month:'short'
+    }
+  );
+
+}
+
+
+function renderDashboard(){
+
+  const items =
+    allReservations.filter(inRange);
+
+  renderStats(items);
+
+  renderActivity(items);
+
+  renderList();
+
+}
+
+
+/* ---------- stat cards ---------- */
+
+function animateCount(el,target){
+
+  const from =
+    Number(el.textContent) || 0;
+
+  cancelAnimationFrame(el.__countFrame);
+
+  clearTimeout(el.__countDone);
+
+  if(
+    from === target ||
+    document.hidden ||
+    matchMedia('(prefers-reduced-motion: reduce)').matches
+  ){
+    el.textContent = target;
+    return;
+  }
+
+  el.__countDone =
+    setTimeout(() => {
+
+      cancelAnimationFrame(el.__countFrame);
+
+      el.textContent = target;
+
+    },650);
+
+  const startTime =
+    performance.now();
+
+  const duration = 550;
+
+  function step(now){
+
+    const t =
+      Math.min(
+        Math.max(
+          (now - startTime) / duration,
+          0
+        ),
+        1
+      );
+
+    const eased =
+      1 - Math.pow(1 - t,3);
+
+    el.textContent =
+      Math.round(
+        from + (target - from) * eased
+      );
+
+    if(t < 1){
+      el.__countFrame =
+        requestAnimationFrame(step);
+    }
+
+  }
+
+  el.__countFrame =
+    requestAnimationFrame(step);
+
+}
+
+
+function renderStats(items){
+
+  const counts = {
+    all:items.length,
+    new:0,
+    confirmed:0,
+    cancelled:0
+  };
+
+  items.forEach(item => {
+    counts[getStatus(item)]++;
+  });
+
+  const share = status =>
+    counts.all
+      ? Math.round(
+          counts[status] / counts.all * 100
+        )
+      : 0;
+
+  Object.keys(counts).forEach(status => {
+
+    animateCount(
+      statGrid.querySelector(
+        `[data-count="${status}"]`
+      ),
+      counts[status]
+    );
+
+    statGrid.querySelector(
+      `[data-share="${status}"]`
+    ).textContent =
+      status === 'all'
+        ? ''
+        : counts.all
+          ? `${share(status)}%`
+          : '—';
+
+    const bar =
+      statGrid.querySelector(
+        `[data-bar="${status}"]`
+      );
+
+    if(bar){
+      bar.style.width =
+        `${share(status)}%`;
+    }
+
+  });
+
+  const mix =
+    statGrid.querySelector('[data-mix]');
+
+  STATUSES.forEach((status,index) => {
+
+    mix.children[index].style.width =
+      counts.all
+        ? `${counts[status] / counts.all * 100}%`
+        : '0%';
+
+  });
+
+  statGrid
+    .querySelector('[data-status="new"]')
+    .classList.toggle(
+      'attention',
+      counts.new > 0
+    );
+
+  insightLine.textContent =
+    counts.all
+      ? `${counts.all} ${
+          counts.all === 1
+            ? 'request'
+            : 'requests'
+        } ${RANGE_TEXT[activeRange]} — ${
+          counts.confirmed
+        } confirmed, ${
+          counts.cancelled
+        } cancelled, ${
+          counts.new
+        } waiting for reply.`
+      : `No requests ${RANGE_TEXT[activeRange]} yet.`;
+
+  const start =
+    rangeStart();
+
+  rangeCaption.textContent =
+    activeRange === 'today'
+      ? `Since 00:00 · ${shortDate(new Date())}`
+      : start
+        ? `${shortDate(start)} – ${shortDate(new Date())}`
+        : 'Every reservation ever received';
+
+}
+
+
+/* ---------- activity chart ---------- */
+
+function buildBuckets(items){
+
+  const now =
+    new Date();
+
+  const buckets = [];
+
+  const add = (label,from,to) =>
+    buckets.push({
+      label,
+      from,
+      to,
+      new:0,
+      confirmed:0,
+      cancelled:0
+    });
+
+  if(activeRange === 'today'){
+
+    const day =
+      startOfDay(now);
+
+    for(let hour = 0; hour < 24; hour++){
+
+      const from =
+        new Date(day);
+
+      from.setHours(hour);
+
+      const to =
+        new Date(from);
+
+      to.setHours(hour + 1);
+
+      add(
+        `${String(hour).padStart(2,'0')}:00`,
+        from,
+        to
+      );
+
+    }
+
+  }else{
+
+    let days =
+      RANGE_DAYS[activeRange];
+
+    if(!days){
+
+      const dates =
+        items
+          .map(createdDate)
+          .filter(Boolean);
+
+      const first =
+        dates.length
+          ? new Date(Math.min(...dates))
+          : now;
+
+      days =
+        Math.round(
+          (startOfDay(now) - startOfDay(first)) /
+          86400000
+        ) + 1;
+
+    }
+
+    if(days <= 31){
+
+      const from =
+        startOfDay(now);
+
+      from.setDate(
+        from.getDate() - (days - 1)
+      );
+
+      for(let i = 0; i < days; i++){
+
+        const dayFrom =
+          new Date(from);
+
+        dayFrom.setDate(
+          from.getDate() + i
+        );
+
+        const dayTo =
+          new Date(dayFrom);
+
+        dayTo.setDate(
+          dayTo.getDate() + 1
+        );
+
+        add(
+          dayFrom.toLocaleDateString(
+            'en-GB',
+            {
+              weekday:'short',
+              day:'numeric',
+              month:'short'
+            }
+          ),
+          dayFrom,
+          dayTo
+        );
+
+      }
+
+    }else{
+
+      const months =
+        Math.min(
+          Math.ceil(days / 30) + 1,
+          12
+        );
+
+      for(let i = months - 1; i >= 0; i--){
+
+        const from =
+          new Date(
+            now.getFullYear(),
+            now.getMonth() - i,
+            1
+          );
+
+        const to =
+          new Date(
+            now.getFullYear(),
+            now.getMonth() - i + 1,
+            1
+          );
+
+        add(
+          from.toLocaleDateString(
+            'en-GB',
+            {
+              month:'long',
+              year:'numeric'
+            }
+          ),
+          from,
+          to
+        );
+
+      }
+
+    }
+
+  }
+
+  items.forEach(item => {
+
+    const created =
+      createdDate(item);
+
+    const bucket =
+      buckets.find(
+        b =>
+          created >= b.from &&
+          created < b.to
+      );
+
+    if(bucket){
+      bucket[getStatus(item)]++;
+    }
+
+  });
+
+  return buckets;
+
+}
+
+
+function axisLabel(bucket){
+
+  if(activeRange === 'today'){
+    return bucket.label;
+  }
+
+  if(bucket.to - bucket.from > 86400000 * 2){
+
+    return bucket.from.toLocaleDateString(
+      'en-GB',
+      {
+        month:'short'
+      }
+    );
+
+  }
+
+  return shortDate(bucket.from);
+
+}
+
+
+let chartBuckets = [];
+
+function renderActivity(items){
+
+  chartBuckets =
+    buildBuckets(items);
+
+  const max =
+    Math.max(
+      1,
+      ...chartBuckets.map(
+        b => b.new + b.confirmed + b.cancelled
+      )
+    );
+
+  activityTitle.textContent =
+    activeRange === 'today'
+      ? 'Activity · by hour'
+      : chartBuckets.length &&
+        chartBuckets[0].to - chartBuckets[0].from > 86400000 * 2
+        ? 'Activity · by month'
+        : 'Activity · by day';
+
+  activityPlot.innerHTML =
+    chartBuckets
+      .map((bucket,index) => {
+
+        const visible =
+          STATUSES.filter(
+            status => bucket[status] > 0
+          );
+
+        return `
+          <div
+            class="activity-col"
+            data-index="${index}"
+          >
+            ${visible
+              .map((status,i) => `
+                <span
+                  class="seg-${status} ${
+                    i === visible.length - 1
+                      ? 'top'
+                      : ''
+                  }"
+                  style="height:${
+                    bucket[status] / max * 100
+                  }%"
+                ></span>
+              `)
+              .join('')}
+          </div>
+        `;
+
+      })
+      .join('') +
+    (
+      items.length
+        ? ''
+        : `<div class="activity-empty">No requests ${RANGE_TEXT[activeRange]}</div>`
+    );
+
+  activityPlot.setAttribute(
+    'aria-label',
+    `${items.length} reservation requests ${RANGE_TEXT[activeRange]}`
+  );
+
+  const first =
+    chartBuckets[0];
+
+  const middle =
+    chartBuckets[
+      Math.floor(chartBuckets.length / 2)
+    ];
+
+  const last =
+    chartBuckets[chartBuckets.length - 1];
+
+  activityAxis.innerHTML =
+    [first,middle,last]
+      .filter(
+        (bucket,index,list) =>
+          bucket &&
+          list.indexOf(bucket) === index
+      )
+      .map(
+        bucket =>
+          `<span>${escapeHTML(axisLabel(bucket))}</span>`
+      )
+      .join('');
+
+  syncChartDim();
+
+}
+
+
+function syncChartDim(){
+
+  STATUSES.forEach(status => {
+
+    activityPlot.classList.toggle(
+      `dim-${status}`,
+      activeStatus !== 'all' &&
+      activeStatus !== status
+    );
+
+  });
+
+}
+
+
+function showChartTip(col,x,y){
+
+  const bucket =
+    chartBuckets[col.dataset.index];
+
+  if(!bucket){
+    return;
+  }
+
+  activityPlot
+    .querySelectorAll('.activity-col.hover')
+    .forEach(el => el.classList.remove('hover'));
+
+  col.classList.add('hover');
+
+  const total =
+    bucket.new +
+    bucket.confirmed +
+    bucket.cancelled;
+
+  chartTip.innerHTML = `
+    <strong>${escapeHTML(bucket.label)} · ${total}</strong>
+    ${STATUSES
+      .map(status => `
+        <div>
+          <i class="seg-${status}"></i>
+          ${STATUS_NAMES[status]}
+          <b>${bucket[status]}</b>
+        </div>
+      `)
+      .join('')}
+  `;
+
+  const width =
+    chartTip.offsetWidth;
+
+  const height =
+    chartTip.offsetHeight;
+
+  chartTip.style.left =
+    `${Math.min(
+      Math.max(x - width / 2, 8),
+      window.innerWidth - width - 8
+    )}px`;
+
+  chartTip.style.top =
+    `${Math.max(y - height - 14, 8)}px`;
+
+  chartTip.classList.add('show');
+
+}
+
+
+function hideChartTip(){
+
+  chartTip.classList.remove('show');
+
+  activityPlot
+    .querySelectorAll('.activity-col.hover')
+    .forEach(el => el.classList.remove('hover'));
+
+}
+
+
+activityPlot.addEventListener(
+  'pointermove',
+  event => {
+
+    const col =
+      event.target.closest('.activity-col');
+
+    if(!col){
+      hideChartTip();
+      return;
+    }
+
+    showChartTip(
+      col,
+      event.clientX,
+      event.clientY
+    );
+
+  }
+);
+
+activityPlot.addEventListener(
+  'pointerleave',
+  hideChartTip
+);
+
+window.addEventListener(
+  'scroll',
+  hideChartTip,
+  { passive:true }
+);
+
+
+/* ---------- list ---------- */
+
+function renderList(){
+
+  const visible =
+    allReservations.filter(
+      item =>
+        inRange(item) &&
+        (
+          activeStatus === 'all' ||
+          getStatus(item) === activeStatus
+        )
+    );
+
   reservationCount.textContent =
-    `${reservations.length} ${
-      reservations.length === 1
+    `${visible.length} ${
+      visible.length === 1
         ? 'request'
         : 'requests'
     }`;
 
-  if(!reservations.length){
+  filterChip.classList.toggle(
+    'show',
+    activeStatus !== 'all'
+  );
+
+  filterChip.innerHTML =
+    activeStatus === 'all'
+      ? ''
+      : `<i class="seg-${activeStatus}"></i>${
+          STATUS_NAMES[activeStatus]
+        } only &nbsp;✕`;
+
+  if(!allReservations.length){
 
     reservationList.innerHTML = `
 
@@ -1743,13 +3471,181 @@ async function loadReservations(){
     return;
   }
 
+  if(!visible.length){
+
+    const label =
+      activeStatus === 'all'
+        ? ''
+        : `${STATUS_NAMES[activeStatus].toLowerCase()} `;
+
+    reservationList.innerHTML = `
+
+      <div class="empty">
+
+        <strong>
+          Nothing here
+        </strong>
+
+        No ${label}reservations
+        ${RANGE_TEXT[activeRange] === 'so far'
+          ? 'yet'
+          : RANGE_TEXT[activeRange]}.
+
+      </div>
+
+    `;
+
+    return;
+  }
+
   reservationList.innerHTML =
-    reservations
+    visible
       .map(renderReservation)
       .join('');
 
   syncStatusSelects();
 
+}
+
+
+/* ---------- controls ---------- */
+
+function setStatusFilter(status){
+
+  activeStatus = status;
+
+  statGrid
+    .querySelectorAll('.stat-card')
+    .forEach(card => {
+
+      const on =
+        card.dataset.status === status;
+
+      card.classList.toggle('active',on);
+
+      card.setAttribute(
+        'aria-pressed',
+        String(on)
+      );
+
+    });
+
+  statGrid.classList.toggle(
+    'filtered',
+    status !== 'all'
+  );
+
+  syncChartDim();
+
+  renderList();
+
+}
+
+
+function moveRangePill(){
+
+  const active =
+    rangeTabs.querySelector('.range-tab.active');
+
+  const pill =
+    rangeTabs.querySelector('.range-pill');
+
+  if(!active || !active.offsetWidth){
+    return;
+  }
+
+  pill.style.width =
+    `${active.offsetWidth}px`;
+
+  pill.style.transform =
+    `translateX(${active.offsetLeft}px)`;
+
+}
+
+
+statGrid.addEventListener(
+  'click',
+  event => {
+
+    const card =
+      event.target.closest('.stat-card');
+
+    if(!card){
+      return;
+    }
+
+    const status =
+      card.dataset.status;
+
+    setStatusFilter(
+      status === activeStatus
+        ? 'all'
+        : status
+    );
+
+  }
+);
+
+
+filterChip.addEventListener(
+  'click',
+  () => setStatusFilter('all')
+);
+
+
+rangeTabs.addEventListener(
+  'click',
+  event => {
+
+    const tab =
+      event.target.closest('.range-tab');
+
+    if(!tab){
+      return;
+    }
+
+    activeRange =
+      tab.dataset.range;
+
+    rangeTabs
+      .querySelectorAll('.range-tab')
+      .forEach(el =>
+        el.classList.toggle(
+          'active',
+          el === tab
+        )
+      );
+
+    moveRangePill();
+
+    renderDashboard();
+
+  }
+);
+
+
+if('ResizeObserver' in window){
+
+  const pillObserver =
+    new ResizeObserver(moveRangePill);
+
+  rangeTabs
+    .querySelectorAll('.range-tab')
+    .forEach(tab =>
+      pillObserver.observe(tab)
+    );
+
+}else{
+
+  window.addEventListener(
+    'resize',
+    moveRangePill
+  );
+
+}
+
+if(document.fonts){
+  document.fonts.ready.then(moveRangePill);
 }
 
 
@@ -1961,12 +3857,8 @@ function renderReservation(item){
         <div class="info-value ${
           item.message
             ? ''
-            : 'empty'
-        }">
-
-          ${escapeHTML(message)}
-
-        </div>
+            : 'is-empty'
+        }">${escapeHTML(message)}</div>
 
       </div>
 
@@ -2095,6 +3987,35 @@ reservationList.addEventListener(
       await loadReservations();
 
       return;
+    }
+
+    const item =
+      allReservations.find(
+        reservation =>
+          String(reservation.id) === id
+      );
+
+    if(item){
+      item.status = status;
+    }
+
+    const items =
+      allReservations.filter(inRange);
+
+    renderStats(items);
+
+    renderActivity(items);
+
+    if(
+      card &&
+      activeStatus !== 'all' &&
+      activeStatus !== status
+    ){
+
+      card.classList.add('leaving');
+
+      setTimeout(renderList,300);
+
     }
 
     showToast(
